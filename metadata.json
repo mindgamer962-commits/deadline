@@ -1,0 +1,8 @@
+{
+  "name": "DeadlineHero AI",
+  "description": "An autonomous deadline recovery agent that predicts completion risks, generates custom hour-by-hour triage plans, simulates dual outcomes, and actively helps users complete work on time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

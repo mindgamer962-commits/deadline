@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with gamified productivity attributes.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase user ID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "Display name of the user" },
+        "photoURL": { "type": "string", "description": "Profile picture URL" },
+        "score": { "type": "number", "description": "Current DeadlineHero Score" },
+        "completedCount": { "type": "number", "description": "Total completed tasks" },
+        "savedCount": { "type": "number", "description": "Total deadlines saved" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Timestamp of creation" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Deadline": {
+      "title": "User Deadline",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "priority": { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+        "progress": { "type": "number" },
+        "estimatedEffort": { "type": "number" },
+        "riskPercentage": { "type": "number" },
+        "successProbability": { "type": "number" },
+        "urgencyScore": { "type": "number" },
+        "recoveryPotential": { "type": "number" },
+        "isCritical": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "title", "date"]
+    },
+    "RescuePlan": {
+      "title": "Deadline Rescue Plan",
+      "properties": {
+        "id": { "type": "string" },
+        "deadlineId": { "type": "string" },
+        "userId": { "type": "string" },
+        "beforeSuccessRate": { "type": "number" },
+        "afterSuccessRate": { "type": "number" },
+        "roadmap": { "type": "array" },
+        "hourByHour": { "type": "array" },
+        "focusSessions": { "type": "number" },
+        "priorityActions": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "deadlineId", "userId"]
+    },
+    "Task": {
+      "title": "Subdivided Task",
+      "properties": {
+        "id": { "type": "string" },
+        "deadlineId": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "estimatedTime": { "type": "string" },
+        "difficulty": { "type": "string" },
+        "priority": { "type": "string" },
+        "status": { "type": "string", "enum": ["TODO", "IN_PROGRESS", "DONE"] },
+        "completionPercentage": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "deadlineId", "userId", "title"]
+    },
+    "ProcrastinationLog": {
+      "title": "Excuse & Procrastination Analysis",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "text": { "type": "string" },
+        "detectedPatterns": { "type": "string" },
+        "procrastinationScore": { "type": "number" },
+        "delayProbability": { "type": "number" },
+        "coachAdvice": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "text"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile collection"
+    },
+    "/deadlines/{deadlineId}": {
+      "schema": "Deadline",
+      "description": "Information about a custom user deadline and its computed risk"
+    },
+    "/rescuePlans/{planId}": {
+      "schema": "RescuePlan",
+      "description": "Emergency recovery rescue roadmaps for specific deadlines"
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Granular execution items generated of subcomponents of any deadline"
+    },
+    "/procrastinationLogs/{logId}": {
+      "schema": "ProcrastinationLog",
+      "description": "Analysis logs of excuses and delay predictions"
+    }
+  }
+}
